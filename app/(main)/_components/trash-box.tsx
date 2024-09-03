@@ -30,7 +30,7 @@ export const TrashBox = () => {
 
   const onRestore = (
     event: React.MouseEvent<HTMLDivElement, MouseEvent>,
-    documentId: Id<"documents">
+    documentId: Id<"documents">,
   ) => {
     event.stopPropagation();
     const promise = restore({ id: documentId });
@@ -41,26 +41,25 @@ export const TrashBox = () => {
     });
   };
 
-  const onRemove = (documentId:Id<'documents'>) => {
+  const onRemove = (documentId: Id<"documents">) => {
+    const promise = remove({ id: documentId });
 
-    const promise = remove({id:documentId})
-
-    toast.promise(promise,{
-      loading:'Deleting note...',
-      success:'Note deleted!',
-      error:'Failed to delete note'
-    })
-    if (params.documentId  === documentId) {
-      router.push('/documents')
+    toast.promise(promise, {
+      loading: "Deleting note...",
+      success: "Note deleted!",
+      error: "Failed to delete note",
+    });
+    if (params.documentId === documentId) {
+      router.push("/documents");
     }
-  }
+  };
 
   if (documents === undefined) {
     return (
       <div className="flex h-full items-center justify-center p-4">
-        <Spinner size='lg'/>
+        <Spinner size="lg" />
       </div>
-    )
+    );
   }
   return (
     <div className="text-sm">
@@ -85,19 +84,25 @@ export const TrashBox = () => {
             onClick={() => onClick(document._id)}
             className="text-sm rounded-sm w-full hover:bg-primary/5 flex items-center text-primary justify-between"
           >
-            <span className="truncate pl-2 ">
-              {document.title}
-            </span>
+            <span className="truncate pl-2 ">{document.title}</span>
             <div className="flex items-center">
-              <div className="rounded-sm p-2 hover:bg-neutral-29  dark:hover:bg-neutral-600" onClick={(e) => onRestore(e, document._id)} role="button"
-              > <Undo className="h-4 w-4 text-muted-foreground" /></div>
+              <div
+                className="rounded-sm p-2 hover:bg-neutral-29  dark:hover:bg-neutral-600"
+                onClick={(e) => onRestore(e, document._id)}
+                role="button"
+              >
+                {" "}
+                <Undo className="h-4 w-4 text-muted-foreground" />
+              </div>
             </div>
             <ConfirmModel onConfirm={() => onRemove(document._id)}>
-              <div role="button" className="rounded-sm p-2 hover:bg-neutral-200 dark:hover:bg-neutral-600">
-                <Trash className="h-4 w-4 text-muted-foreground"/>
+              <div
+                role="button"
+                className="rounded-sm p-2 hover:bg-neutral-200 dark:hover:bg-neutral-600"
+              >
+                <Trash className="h-4 w-4 text-muted-foreground" />
               </div>
             </ConfirmModel>
-            
           </div>
         ))}
       </div>

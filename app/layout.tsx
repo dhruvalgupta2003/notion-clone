@@ -44,7 +44,7 @@ export default function RootLayout({
             storageKey="jotion-theme-2"
           >
             <Toaster position="bottom-center" />
-            <ModelProvider ></ModelProvider>
+            <ModelProvider></ModelProvider>
             {children}
           </ThemeProvider>
         </ConvexClientProvider>
