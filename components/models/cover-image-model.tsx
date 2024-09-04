@@ -4,21 +4,21 @@ import { useState } from "react"
 import { useMutation } from "convex/react"
 import { useParams } from "next/navigation"
 
-import {Dialog,DialogContent,DialogHeader} from '@/components/ui/dialog'
+import {Dialog,DialogContent,DialogHeader,DialogTitle} from '@/components/ui/dialog'
 import { useConverImage } from "@/hooks/use-cover-image"
 import { SingleImageDropzone } from "@/components/single-image-dropzone"
-// import { useEdgeStore } from "@/lib/edgestore"
+import { useEdgeStore } from "@/lib/edgestore"
 import { api } from "@/convex/_generated/api"
 import { Id } from "@/convex/_generated/dataModel"
 
 export function CoverImageModel () {
 
   const params = useParams()
-  // const update = useMutation(api.documents.update)
+  const update = useMutation(api.documents.update)
   const [file,setFile] = useState<File>()
   const [isSubmitting,setIsSubmitting] = useState(false)
   const coverImage = useConverImage()
-  // const {edgestore} = useEdgeStore()
+  const {edgestore} = useEdgeStore()
 
   const onClose = () => {
     setFile(undefined)
@@ -31,18 +31,18 @@ export function CoverImageModel () {
       setIsSubmitting(true)
       setFile(file)
 
-      // const response = await edgestore.publicFiles.upload({
-      //     file,
-      //     options:{
-      //       replaceTargetUrl:coverImage.url
-      //     }
-      //   })
+      const response = await edgestore.publicFiles.upload({
+          file,
+          options:{
+            replaceTargetUrl:coverImage.url
+          }
+        })
     
 
-      // await update({
-      //   id:params.documentId as Id<'documents'>,
-      //   coverImage:response.url
-      // })
+      await update({
+        id:params.documentId as Id<'documents'>,
+        coverImage:response.url
+      })
 
       onClose()
     }
@@ -52,9 +52,11 @@ return (
     <Dialog open={coverImage.isOpen} onOpenChange={coverImage.onClose}>
       <DialogContent>
         <DialogHeader>
-          <h2 className="text-center text-lg font-semibold">
-            Cover Image
-          </h2>
+          <DialogTitle>
+            <h2 className="text-center text-lg font-semibold">
+              Cover Image
+            </h2>
+          </DialogTitle>
         </DialogHeader>
         <SingleImageDropzone className="w-full outline-none"
         disabled={isSubmitting}
