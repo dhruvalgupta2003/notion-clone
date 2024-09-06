@@ -53,7 +53,7 @@ const Navigation = () => {
     document.addEventListener("mouseup", handleMouseUp);
   };
 
-  const handleMouseMove = (e: MouseEvent) => {
+  const handleMouseMove = (event: MouseEvent) => {
     if (!isResizingRef.current) return;
     let newWidth = event.clientX;
 
