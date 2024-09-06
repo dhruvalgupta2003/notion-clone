@@ -1,5 +1,6 @@
 "use client";
 
+import React from 'react';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -17,14 +18,19 @@ interface ConfirmModelProps {
   onConfirm: () => void;
 }
 
-export const ConfirmModel = ({ children, onConfirm }: ConfirmModelProps) => {
-  const handleConfirm = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    e.stopPropagation();
+export const ConfirmModel: React.FC<ConfirmModelProps> = ({ children, onConfirm }) => {
+  const handleConfirm = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    event.stopPropagation();
     onConfirm();
   };
+
+  const handleCancel = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    event.stopPropagation();
+  };
+
   return (
     <AlertDialog>
-      <AlertDialogTrigger onClick={(e) => e.stopPropagation()} asChild>
+      <AlertDialogTrigger onClick={(e: React.MouseEvent<HTMLButtonElement>) => e.stopPropagation()} asChild>
         {children}
       </AlertDialogTrigger>
       <AlertDialogContent>
@@ -35,7 +41,7 @@ export const ConfirmModel = ({ children, onConfirm }: ConfirmModelProps) => {
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel onClick={(e) => e.stopPropagation()}>
+          <AlertDialogCancel onClick={handleCancel}>
             Cancel
           </AlertDialogCancel>
           <AlertDialogAction onClick={handleConfirm}>
