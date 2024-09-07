@@ -6,6 +6,7 @@ import { ThemeProvider } from "@/components/providers/theme-provider";
 import { ConvexClientProvider } from "@/components/providers/convex-provider";
 import { ModelProvider } from "@/components/providers/model-provider";
 import { EdgeStoreProvider } from "@/lib/edgestore";
+import GoogleAnalytics from "@/components/google-analytics";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -35,6 +36,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <GoogleAnalytics />
       <body className={inter.className}>
         <ConvexClientProvider>
           <EdgeStoreProvider>
