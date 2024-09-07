@@ -39,7 +39,7 @@ export default function DocumentIdPage({ params }: DocumentIdPageProps) {
     return (
       <div>
         <Cover.Skeleton />
-        <div className="md:max-w-3xl lg:max-w-4xl mx-auto mt-10">
+        <div className="md:max-w-3xl lg:max-w-4xl mx-auto mt-10 dark:bg-[#1F1F1F]">
           <div className="space-y-4 pl-8 pt-4">
             <Skeleton className="h-14 w-[50%]" />
             <Skeleton className="h-14 w-[80%]" />
@@ -58,7 +58,7 @@ export default function DocumentIdPage({ params }: DocumentIdPageProps) {
   return (
     <div className="pb-40">
       <Cover preview url={document.coverImage} />
-      <div className="md:max-w-3xl lg:md-max-w-4xl mx-auto">
+      <div className="md:max-w-3xl lg:md-max-w-4xl mx-auto dark:bg-[#1F1F1F]">
         <Toolbar preview initialData={document} />
         <Editor
           editable={false}
